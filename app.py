@@ -1,6 +1,5 @@
 import streamlit as st
 import pickle
-import docx
 import PyPDF2
 import re
 
@@ -28,10 +27,6 @@ def extract_text_from_pdf(file):
     text = ''.join(page.extract_text() for page in pdf_reader.pages)
     return text
 
-def extract_text_from_docx(file):
-    doc = docx.Document(file)
-    text = '\n'.join(paragraph.text for paragraph in doc.paragraphs)
-    return text
 
 def extract_text_from_txt(file):
     try:
@@ -44,8 +39,6 @@ def handle_file_upload(uploaded_file):
     file_extension = uploaded_file.name.split('.')[-1].lower()
     if file_extension == 'pdf':
         return extract_text_from_pdf(uploaded_file)
-    elif file_extension == 'docx':
-        return extract_text_from_docx(uploaded_file)
     elif file_extension == 'txt':
         return extract_text_from_txt(uploaded_file)
     else:
